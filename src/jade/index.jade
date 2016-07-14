@@ -4,25 +4,29 @@ html(lang="en")
 		meta(charset="UTF-8")
 		meta(http-equiv="X-UA-Compatible" content="IE=edge")
 		meta(name="viewport" content="width=device-width, initial-scale=1")
-		title JS Trainings
+		title Modular JS
 		meta(name="description" content="template")
 		meta(name="keywords" content="template")
 		meta(name="author" content="Kamrade")
 		meta(name="apple-mobile-web-app-capable" content="yes")  
-
 		link(rel="stylesheet" type="text/css" href="./assets/css/style.css")
-		
+
 	body
 		div.container
-			div.row
-				h1 JS Trainings
-		div.container
-			div.row
-				div.work
+			h1 Modular JS
+			div#statsModule
+			
+			div#peopleModule
+				h2 People
+				input(type="text" placeholder="name" )
+				button#addPerson Add person
+				ul#people
 
-
+		include ./modules/stats-template.html
+		include ./modules/people-template.html
 
 		script(src="./libs/jquery/dist/jquery.js")
+		script(src="./libs/mustache.js/mustache.js")
 		script(src="https://d3js.org/d3.v4.min.js")
 		script(src="./libs/bootstrap-sass/assets/javascripts/bootstrap.js")
 		script(src="./assets/js/app.js")

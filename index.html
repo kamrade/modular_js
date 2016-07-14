@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>JS Trainings</title>
+    <title>Modular JS</title>
     <meta name="description" content="template"/>
     <meta name="keywords" content="template"/>
     <meta name="author" content="Kamrade"/>
@@ -13,16 +13,33 @@
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <h1>JS Trainings</h1>
+      <h1>Modular JS</h1>
+      <div id="statsModule"></div>
+      <div id="peopleModule">
+        <h2>People</h2>
+        <input type="text" placeholder="name"/>
+        <button id="addPerson">Add person</button>
+        <ul id="people"></ul>
       </div>
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="work"></div>
-      </div>
-    </div>
+
+<script type="text/template" id="statsTemplate">
+	{{#people}}
+		<p> <b>Stats:</b> <span>{{.}}</span> </p>
+	{{/people}}
+</script>
+<script type="text/template" id="peopleTemplate">
+	{{#people}}
+		<li>
+			<span>{{.}}</span>
+			<i class="fa fa-times del"></i>
+			<!-- <i class="del">x</i> -->
+		</li>
+	{{/people}}
+</script>
+
     <script src="./libs/jquery/dist/jquery.js"></script>
+    <script src="./libs/mustache.js/mustache.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="./libs/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
     <script src="./assets/js/app.js"></script>
