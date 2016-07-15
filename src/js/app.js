@@ -6,28 +6,52 @@ console.log( "D3 version: " + d3.version );
 
 // -------------------------------------------------------------
 
-var people = [];
-var template = $('#peopleTemplate').html();
+(function(){
+	var people = {
 
-$('#peopleModule').find('button').on('click', function() {
-	if ($('#peopleModule').find('input').val() !== ''){
-		
-		people.push($('#peopleModule').find('input').val());
-		$('#peopleModule').find('input').val('');
-		
-		var data = {
-			people: people
-		};
+		people: ["Will", "Bill"],
 
-		$('#peopleModule').find('ul').html(Mustache.render(template, data));	
-	}
-});
+		init: function() {
+			this.cacheDom();
+			this.render();
+			this.bindEvents();
+		},
+		cacheDom: function() {
+			this.$el = $('#peopleModule');
+			this.$button = this.$el.find('button');
+			this.$input = this.$el.find('input');
+			this.$ul = this.$el.find('ul');
+			this.template = $('#peopleTemplate').html();
+		},
+		render: function() {
+			// Just example what Mustache is
+			// var test = Mustache.render( "Hi, {{name}}", {name: "Denis"} );
+			// console.log(test);
+			var data = {
+				people: this.people
+			};
+			this.$ul.html(Mustache.render(this.template, data));
+		},
+		bindEvents: function() {
+			this.$button.on('click', this.addPerson.bind(this));
+			this.$ul.delegate('i.del', 'click', this.deletePerson.bind(this));
+		},
+		addPerson: function(value) {
+			this.people.push( value || this.$input.val() );
+			this.render();
+			this.$input.val('');
+		},
+		deletePerson: function(event) {
+			var $remove = $(event.target).closest('li');
+			var i = this.$ul.find('li').index($remove);
+			this.people.splice(i, 1);
+			this.render();
+		}
+	};
 
-$('#peopleModule').find('ul').delegate('i.del', 'click', function(e) {
-	
-	var $remove = $(e.target).closest('li');
-	var i = $('#peopleModule').find('ul').find('li').index($remove);
+	people.init();
 
-	$remove.remove();
-	people.splice(i, 1);
-});
+})();
+
+// delegate
+// index
