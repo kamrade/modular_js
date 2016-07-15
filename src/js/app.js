@@ -30,14 +30,14 @@ console.log( "D3 version: " + d3.version );
 			var data = {
 				people: this.people
 			};
-			this.$ul.html(Mustache.render(this.template, data));
+			this.$ul.html( Mustache.render(this.template, data) );
 		},
 		bindEvents: function() {
 			this.$button.on('click', this.addPerson.bind(this));
 			this.$ul.delegate('i.del', 'click', this.deletePerson.bind(this));
 		},
-		addPerson: function(value) {
-			this.people.push( value || this.$input.val() );
+		addPerson: function() {
+			this.people.push( this.$input.val() );
 			this.render();
 			this.$input.val('');
 		},
