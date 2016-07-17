@@ -1,47 +1,54 @@
-// classical inheritance
+// prototypal inheritance
 
-function inherits(ctor, superCtor) {
-	ctor.super_ = superCtor;
-	ctor.prototype = Object.create( superCtor.prototype, {
-		constructor: {
-			value: ctor,
-			enumerable: false,
-			writable: true,
-			configurable: true
-		}
-	});
+var human = {
+	species: "human",
+	create: function(values) {
+		var instance = Object.create(this);
+		Object.keys(values).forEach(function(key) {
+			instance[key] = values[key];
+		});
+		return instance;
+	},
+	saySpecies: function() {
+		console.log( this.species );
+	},
+	sayName: function() {
+		console.log( this.name );
+	}
 };
 
-var Person = function(name) {
-	this.name = name;
-};
+var musician = human.create({
+	species: "musican",
+	playInstrument: function() {
+		console.log( "plays " + this.instrument );
+	}
+});
 
-Person.prototype.sayName = function() {
-	console.log("Hi, my name is " + this.name);
-};
+var will = musician.create({
+	name: "Will",
+	instrument: "Guitar"
+});
 
-var john = new Person('John');
-var bobby = new Person('Bobby');
+will.playInstrument();
+will.sayName();
+will.saySpecies();
 
-john.sayName();
-bobby.sayName();
 
-var Musician = function(name, instrument) {
-	Musician.super_.call(this, name);
-	this.instrument = instrument;
-};
 
-inherits( Musician, Person );
+// var will = human.create("Will");
+// var bob = human.create("Bob");
+// var musician = Object.create(human);
+// musician.playInstrument = function() {
+// 	console.log( 'plays ' + this.instrument );
+// };
 
-Musician.prototype.getInstrument = function() {
-	console.log( this.instrument );
-};
+// var will = Object.create(musician);
+// will.name = "Will";
+// will.instrument = "Drums";
 
-Musician.prototype.shoutName = function() {
-	console.log("My name is " + this.name + "!!!");
-};
+// will.saySpecies();
+// will.playInstrument();
 
-var julia = new Musician('Julia', 'trombone');
-julia.sayName();
-julia.getInstrument();
-julia.shoutName();
+// human.species = "Homo sapiens"
+
+// will.saySpecies();
