@@ -1,4 +1,13 @@
 
+
+
+
+
+
+
+
+
+
 var events = {
 	events: {},
 	on: function(eventName, fn) {
@@ -22,5 +31,4 @@ var events = {
 			});
 		}
 	}
-
 };
